@@ -1,26 +1,54 @@
+import { List, Table } from "@/types";
 import { create } from "zustand";
-import { ITable } from "@/types";
+import { persist } from "zustand/middleware";
 
-const useTableStore = create((set)=>({
-    app:{
-        tables:[
-           
-        ]
-    },
+type Store = {
+  tables: Table[];
+  createTable: (table: Table) => void;
+  createList: (table: Table, List: List) => void;
+};
 
-    createTable:(payload:ITable)=>{
-        set((state: { app: { tables: ITable[]; }; }) => {
-            //Check whether there's a table with the same name as the new table you're creating:
-            const existingTable = state.app.tables.find((item)=>item.name === payload.name)
-            if(existingTable){
-                return {app:{tables:[...state.app.tables]}}
+const useTableStore = create<Store>()(
+  persist(
+    (set) => ({
+      tables: <Table[]>[],
+
+      createTable: (table) => {
+        set((state) => {
+          const existingTable = state.tables.find(
+            (item) => item.name === table.name
+          );
+          if (existingTable) {
+            return state;
+          } else {
+            return {
+              tables: [...state.tables, table],
+            };
+          }
+        }); //end of setter function
+      }, //end of createTable function
+
+      createList: (table, List) => {
+        set((state) => {
+          const updatedTable = state.tables.map((item)=>{
+            if (item.name === table.name) {
+              return {
+                ...item,
+                lists: [...item.lists, List],
+              };
             }
-            else{
-                return { app: { tables: [...state.app.tables, payload] } }
-            }
-        })
+            return item;
+          })
+          return{ 
+            tables:updatedTable
+          }
+        });
+      },
+    }), //end of setter function for create
+    {
+      name: "tables",
     }
-   
-}))
+  )
+);
 
-export {useTableStore}
+export { useTableStore };
