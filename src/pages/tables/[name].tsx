@@ -7,6 +7,7 @@ import { List, Table } from "@/types";
 import toast from "react-hot-toast";
 import {AiOutlineDelete} from "react-icons/ai"
 import {DragDropContext} from "react-beautiful-dnd"
+import Head from "next/head";
 
 function Index() {
   let [isAddListOpen, setAddListIsOpen] = useState<boolean>(false);
@@ -71,6 +72,9 @@ function Index() {
 
   return (
     <>
+      <Head>
+        <title>The Dashboard</title>
+      </Head>
       <main className="pl-[15vw]">
         <section>
           {/* Heading */}
@@ -78,7 +82,7 @@ function Index() {
             <h1 className="font-bold text-2xl">{name}</h1>
             <section className="flex gap-3 items-center">
               <button
-                className="bg-black text-white px-4 py-2"
+                className="bg-[#191919] text-white px-4 py-2"
                 onClick={() => {
                   setAddListIsOpen(true);
                 }}
@@ -102,9 +106,9 @@ function Index() {
                 currentTable.lists.map((listItem, index) => (
                   <div
                     key={index}
-                    className="my-3"
+                    className="my-3 min-w-[300px]"
                   >
-                    <div className="flex w-[300px] border p-3 justify-between items-center">
+                    <div className="flex bg-[#191919] p-3 justify-between items-center">
                       <h1 className="">{listItem.name}</h1>
                       <section className="flex gap-3">
                         <button
@@ -125,11 +129,12 @@ function Index() {
                         </button>
                       </section>
                     </div>
-                    <section className="p-3 bg-gray-100">
+                    <section className="p-2 bg-[#151515]">
                       {listItem.items.map((item, index) => (
                         <div key={index}>
-                          <section className="my-2 bg-gray-200 p-3 rounded">
+                          <section className="my-2 bg-[#191919] p-3 rounded">
                             <p>{item}</p>
+                            <br />
                             <section className="flex justify-end">
                               <button onClick={()=>{
                                 setSelectedTableList(listItem)

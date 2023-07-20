@@ -16,7 +16,7 @@ function DisclosureItem({ tablesList }: { tablesList: Table[] }) {
         onClick={toggleDisclosure}
         className="focus:outline-none w-full"
       >
-        <div className="flex items-center text-md bg-gray-100 p-3 rounded cursor-pointer hover:bg-gray-200 ease duration-500 w-full">
+        <div className="flex items-center text-md bg-[#191919] p-3 text-[#777777] rounded cursor-pointer hover:bg-gray-200 ease duration-500 w-full">
           <p>Tables</p>
           <BiChevronDown />
         </div>
@@ -26,7 +26,7 @@ function DisclosureItem({ tablesList }: { tablesList: Table[] }) {
           {tablesList.length > 0 ? (
             tablesList.map((item, index) => (
               <Link href={`/tables/${item.name}`} key={index}>
-                <div className="flex items-center text-md bg-gray-100 p-3 rounded cursor-pointer hover:bg-gray-200 ease duration-500 w-full">
+                <div className="flex items-center text-md bg-[#191919] p-3 text-[#777777] rounded my-2 cursor-pointer hover:bg-gray-200 ease duration-500 w-full">
                   {item.name}
                 </div>
               </Link>

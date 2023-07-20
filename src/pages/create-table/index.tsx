@@ -1,12 +1,14 @@
 import { Table } from "@/types";
 import { useTableStore } from "@/zustand/Store";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 
 function Index() {
   const createTable = useTableStore((state) => state.createTable);
   const router = useRouter();
+  const [isSubmitted,setIsSubmitted] = useState<boolean>(false)
 
   const {
     register,
@@ -14,6 +16,7 @@ function Index() {
     formState: { errors },
   } = useForm<Table>();
   const onSubmit: SubmitHandler<Table> = (data) => {
+    setIsSubmitted(true)
     data.lists = [];
     createTable(data);
     console.log(data);
@@ -24,7 +27,7 @@ function Index() {
     <main className="md:pl-[15vw]">
       <section className="p-5">
         <h1 className="font-bold md:text-3xl">Create a New Table</h1>
-        <hr className="my-5" />
+        <hr className="my-5 border-[#777777]" />
         <form onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="table_name text-xl">Name:</label>
           <br />
@@ -38,8 +41,9 @@ function Index() {
           )}
           <br />
           <button
-            className="bg-black text-white px-4 py-2 rounded my-5"
+            className="bg-green-900 text-white px-4 py-2 rounded my-5"
             type="submit"
+            disabled={isSubmitted}
           >
             <p>Create Table</p>
           </button>
