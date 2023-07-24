@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 function Layout({children}:{children:ReactNode}) {
   return (
-    <ClerkProvider>
+    <ClerkProvider publishableKey='pk_test_Y2xldmVyLWd1cHB5LTg0LmNsZXJrLmFjY291bnRzLmRldiQ'>
       <div><Toaster/></div>
         <main className={inter.className}>
             <Navbar/>
